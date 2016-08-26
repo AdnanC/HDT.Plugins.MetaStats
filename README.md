@@ -9,3 +9,4 @@ I started this project to help me and my friends stay on top of the current meta
 2. Then unzip the release into the HDT Plugins directory (this directory can be opened with Options > Tracker > Plugins > Plugins Folder)
 3. The directory should look like Plugins/MetaStats/[some files]
 4. Enable the plugin from Options > Tracker > Plugins
+5. Make sure to re-enable the plugin after HDT upadte
