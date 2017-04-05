@@ -7,9 +7,9 @@
              mc:Ignorable="d" WindowStyle="ToolWindow" Title="New Version Available !" Height="139.466" Topmost="True" Width="420.964">
     <Grid>
         <TextBlock x:Name="textBlock" Margin="10" TextWrapping="Wrap" FontSize="18" Foreground="#FFD82828">
-        New version available for MetaDetector Plugin.<LineBreak/><LineBreak/>
+        New version available for MetaStats Plugin.<LineBreak/><LineBreak/>
         <Hyperlink 
-            NavigateUri="https://github.com/adnanc/HDT.Plugins.MetaDetector/releases"
+            NavigateUri="https://github.com/adnanc/HDT.Plugins.MetaStats/releases"
             RequestNavigate="Hyperlink_RequestNavigate">
             Please click here to download the latest version.
         </Hyperlink>

@@ -48,16 +48,19 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HearthDb">
-      <HintPath>..\..\Hearthstone-Deck-Tracker\HearthDb\HearthDb\bin\x86\Debug\HearthDb.dll</HintPath>
+    <Reference Include="HearthDb, Version=6.2.0.15181, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Hearthstone-Deck-Tracker\Hearthstone Deck Tracker\bin\x86\Debug\HearthDb.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="HearthMirror">
-      <HintPath>..\..\Hearthstone-Deck-Tracker\HearthMirror\HearthMirror\bin\x86\Debug\HearthMirror.dll</HintPath>
+    <Reference Include="HearthMirror, Version=6.2.0.15181, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Hearthstone-Deck-Tracker\Hearthstone Deck Tracker\bin\x86\Debug\HearthMirror.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="HearthstoneDeckTracker">
-      <HintPath>..\..\Hearthstone-Deck-Tracker\Hearthstone Deck Tracker\bin\x86\Debug\HearthstoneDeckTracker.exe</HintPath>
+    <Reference Include="HearthstoneDeckTracker, Version=1.1.1.1, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Hearthstone-Deck-Tracker\Hearthstone Deck Tracker\bin\x86\Debug\HearthstoneDeckTracker.exe</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -75,20 +78,36 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compress.cs" />
+    <Compile Include="Controls\NotificationWindow.xaml.cs">
+      <DependentUpon>NotificationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PluginMenu.xaml.cs">
       <DependentUpon>PluginMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\VersionWindow.xaml.cs">
       <DependentUpon>VersionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="GitHub.cs" />
+    <Compile Include="MetaConfig.cs" />
     <Compile Include="MetaStats.cs" />
     <Compile Include="MetaStatsPlugin.cs" />
     <Compile Include="MetaLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\NotificationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\PluginMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

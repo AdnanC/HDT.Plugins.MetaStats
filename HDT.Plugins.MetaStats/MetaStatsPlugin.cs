@@ -6,6 +6,9 @@ using Hearthstone_Deck_Tracker.Plugins;
 using HDT.Plugins.MetaStats.Controls;
 using HDT.Plugins.MetaStats.Logging;
 using System.Threading.Tasks;
+using Hearthstone_Deck_Tracker;
+using System.ComponentModel;
+using System.Net;
 
 namespace HDT.Plugins.MetaStats
 {
@@ -14,6 +17,7 @@ namespace HDT.Plugins.MetaStats
         private static string pluginDir = Path.Combine(Hearthstone_Deck_Tracker.Config.Instance.DataDir, "MetaStats");
         private MenuItem _MetaDetectorMenuItem;
         private MetaStats _MetaStats = null;
+        private MetaConfig _appConfig;
 
         public string Author
         {
@@ -43,18 +47,30 @@ namespace HDT.Plugins.MetaStats
 
         public void OnButtonPress()
         {
-
+            try
+            {
+                SettingsWindow wndSettings = new SettingsWindow(_appConfig.userKey);
+                wndSettings.Show();
+            }
+            catch (Exception ex)
+            {
+                MetaLog.Error(ex);
+            }
         }
 
         public void OnLoad()
         {
             try
             {
+
                 if (!Directory.Exists(pluginDir))
                     Directory.CreateDirectory(pluginDir);
 
-                _MetaStats = new MetaStats();
-                _MetaDetectorMenuItem = new PluginMenu();
+                _appConfig = MetaConfig.Load();
+                _appConfig.Save();
+
+                _MetaStats = new MetaStats(_appConfig);
+                _MetaDetectorMenuItem = new PluginMenu(_appConfig.userKey);
 
                 GameEvents.OnGameStart.Add(_MetaStats.GameStart);
                 GameEvents.OnGameEnd.Add(_MetaStats.GameEnd);
@@ -105,16 +121,51 @@ namespace HDT.Plugins.MetaStats
 
         public Version Version
         {
-            get { return new Version(0, 0, 1); }
+            get { return new Version(0, 0, 2); }
         }
 
         private async void CheckForUpdate()
         {
-            var latest = await GitHub.CheckForUpdate("adnanc", "HDT.Plugins.MetaStats", Version);
-            if (latest != null)
+            try
             {
-                VersionWindow newVersion = new VersionWindow();
-                newVersion.Show();
+                var latest = await GitHub.CheckForUpdate("adnanc", "HDT.Plugins.MetaStats", Version);
+                if (latest != null)
+                {
+                    //VersionWindow newVersion = new VersionWindow();
+                    //newVersion.Show();
+                    string pluginDLL = Path.Combine(Config.Instance.DataDir, @"Plugins\MetaStats\MetaStats.tmp");
+
+                    using (WebClient wc = new WebClient())
+                    {
+                        wc.DownloadFileCompleted += (wc_DownloadFileCompleted);
+                        wc.DownloadFileAsync(new Uri("https://s3.amazonaws.com/metastats/MetaStats.dll"), pluginDLL);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MetaLog.Error(ex);
+            }
+        }
+
+        void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            try
+            {
+                string tempFile = Path.Combine(Config.Instance.DataDir, @"Plugins\MetaStats\MetaStats.tmp");
+                string pluginDLL = Path.Combine(Config.Instance.DataDir, @"Plugins\MetaStats\MetaStats.dll");
+                FileInfo fi = new FileInfo(tempFile);
+                if (File.Exists(tempFile))
+                {
+                    if (fi.Length > 0)
+                        File.Copy(tempFile, pluginDLL, true);
+
+                    File.Delete(tempFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                MetaLog.Error(ex);
             }
         }
     }

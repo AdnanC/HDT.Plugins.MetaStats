@@ -1,0 +1,45 @@
+﻿<Window
+    x:Class="HDT.Plugins.MetaStats.Controls.NotificationWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:HDT.Plugins.MetaStats.Controls"
+  Title="Notification Popup" Width="270.914" SizeToContent="Height"
+  WindowStyle="None" AllowsTransparency="True" Background="Transparent" Height="80.055" ShowInTaskbar="False">
+
+    <Grid RenderTransformOrigin="0,2" >
+
+        <!-- Notification area -->
+        <Border BorderThickness="1" CornerRadius="3" BorderBrush="#FFFFF4F4" Background="#FF6D6DA2">
+            <StackPanel Margin="5">
+                <TextBlock TextWrapping="Wrap" Margin="5" Foreground="#FFF3F1F1">
+          <Bold>MetaStats Plugin Active</Bold><LineBreak /><LineBreak />
+          Thank you for contributing.
+                </TextBlock>
+            </StackPanel>
+        </Border>
+
+        <!-- Animation -->
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)">
+                            <SplineDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                            <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Completed="DoubleAnimationUsingKeyFrames_Completed">
+                            <SplineDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
+                            <SplineDoubleKeyFrame KeyTime="0:0:6" Value="0"/>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
+
+        <Grid.RenderTransform>
+            <ScaleTransform ScaleY="1" />
+        </Grid.RenderTransform>
+
+    </Grid>
+
+</Window>

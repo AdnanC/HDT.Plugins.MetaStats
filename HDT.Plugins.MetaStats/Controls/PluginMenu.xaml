@@ -5,5 +5,5 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HDT.Plugins.MetaStats.Controls"
              mc:Ignorable="d"       
-             Header="Meta Detector" Margin="0" Padding="0,5" Click="MenuItem_Click">
+             Header="Meta Stats" Margin="0" Padding="0,5" Click="MenuItem_Click">
 </MenuItem>
